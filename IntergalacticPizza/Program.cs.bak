@@ -1,0 +1,127 @@
+﻿namespace PizzaSpace
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+
+            string? readResult = "";
+            string[] validLocation = ["earth", "mars", "jupiter", "venus"];
+            string[] validPizza = ["1", "2", "3", "4"];
+
+            int cheese = 0;
+            int meat = 0;
+            int veggie = 0;
+            int bbq = 0;
+
+            int totalPizzas = 0;
+            double totalCost = 0;
+            int deliveryFee = 0;
+            double totalDue = 0;
+
+            string location = "";
+
+            do
+            {
+                Console.Clear();
+                System.Console.WriteLine("Hello, Welcome to Intergalactic Pizza!");
+                System.Console.WriteLine();
+                System.Console.WriteLine("Where are you ordering from?");
+                System.Console.WriteLine("(Valid locations are Earth, Mars, Jupiter, and Venus)");
+                System.Console.WriteLine();
+                readResult = Console.ReadLine();
+
+            } while (string.IsNullOrEmpty(readResult) || !validLocation.Contains(readResult.ToLower()));
+
+            location = readResult.ToLower();
+
+            if (location == "earth")
+                deliveryFee = 5;
+            if (location == "mars")
+                deliveryFee = 10;
+            if (location == "jupiter")
+                deliveryFee = 15;
+            if (location == "venus")
+                deliveryFee = 8;
+
+            do
+            {
+                Console.Clear();
+                System.Console.WriteLine("What kind of pizza would you like?");
+                System.Console.WriteLine();
+                System.Console.WriteLine("1.\tGalactic Cheese");
+                System.Console.WriteLine("2.\tMeteor Meat Lover");
+                System.Console.WriteLine("3.\tVeggie Nebula");
+                System.Console.WriteLine("4.\tBlack Hole BBQ");
+                System.Console.WriteLine();
+                System.Console.WriteLine("If you are finished with your order, please enter \"done\"...");
+                System.Console.WriteLine();
+                System.Console.WriteLine($"Current order: ");
+                System.Console.WriteLine();
+                if (cheese > 0)
+                    System.Console.WriteLine($"{cheese} x Galactic Cheese @ $10 \t\t {(cheese * 10):C2}");
+                if (meat > 0)
+                    System.Console.WriteLine($"{meat} x Meteor Meat Lover @ $15 \t\t {(meat * 15):C2}");
+                if (veggie > 0)
+                    System.Console.WriteLine($"{veggie} x Veggie Nebula @ $12 \t\t {(veggie * 12):C2}");
+                if (bbq > 0)
+                    System.Console.WriteLine($"{bbq} x Black Hole BBQ @ $18 \t\t {(bbq * 18):C2}");
+
+                System.Console.WriteLine();
+                System.Console.WriteLine("Please enter the item number you would like to order. If finished, enter \"done\".");
+                readResult = Console.ReadLine();
+
+                if (string.IsNullOrEmpty(readResult))
+                {
+                    readResult = "";
+                    continue;
+                }
+                if (readResult == "1")
+                {
+                    cheese++;
+                    totalCost += 10;
+                }
+                if (readResult == "2")
+                {
+                    meat++;
+                    totalCost += 15;
+                }
+                if (readResult == "3")
+                {
+                    veggie++;
+                    totalCost += 12;
+                }
+                if (readResult == "4")
+                {
+                    bbq++;
+                    totalCost += 18;
+                }
+            } while (readResult != "done");
+
+            totalPizzas = cheese + meat + veggie + bbq;
+
+            int subtotal = (int)totalCost;
+
+            if (totalPizzas > 2)
+                totalCost /= .90;
+
+            System.Console.WriteLine($"Order to {location}");
+            System.Console.WriteLine("---------------------------------");
+            if (cheese > 0)
+                System.Console.WriteLine($"{cheese} x Galactic Cheese @ $10 \t\t {(cheese * 10):C2}");
+            if (meat > 0)
+                System.Console.WriteLine($"{meat} x Meteor Meat Lover @ $15 \t\t {(meat * 15):C2}");
+            if (veggie > 0)
+                System.Console.WriteLine($"{veggie} x Veggie Nebula @ $12 \t\t {(veggie * 12):C2}");
+            if (bbq > 0)
+                System.Console.WriteLine($"{bbq} x Black Hole BBQ @ $18 \t\t {(bbq * 18):C2}");
+            System.Console.WriteLine($"Subtotal: {subtotal:C2}");
+            if (totalPizzas > 2)
+                System.Console.WriteLine($"Discount(10 %): {((double)subtotal - (double)subtotal * .90):C2}");
+
+            System.Console.WriteLine($"Delivery Fee: {deliveryFee:C2}");
+            System.Console.WriteLine($"Total Due: {(totalCost + deliveryFee):C2}");
+
+        }
+    }
+}
